@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P.A.E. — Descubre qué sistema necesita tu negocio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050505;--surface:#0d0d0d;--card:#111;
+  --border:rgba(255,255,255,0.07);--border-hover:rgba(255,255,255,0.15);
+  --red:#ff3b30;--red-glow:rgba(255,59,48,0.25);--red-dim:rgba(255,59,48,0.08);
+  --white:#fff;--gray:#999;--muted:#444;--gold:#f5a623;
+  --font:'Inter',system-ui,sans-serif;--font2:'Space Grotesk',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--font);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+.mesh{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,59,48,.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,59,48,.04) 0%,transparent 60%);animation:meshPulse 8s ease-in-out infinite alternate;}
+@keyframes meshPulse{0%{opacity:.6}100%{opacity:1}}
+.grid-overlay{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 100% 100% at 50% 0%,black 40%,transparent 100%);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:60px;border-bottom:1px solid var(--border);background:rgba(5,5,5,.85);backdrop-filter:blur(20px);}
+.nav-logo{font-family:var(--font2);font-size:1rem;font-weight:700;letter-spacing:.15em;color:var(--white);display:flex;align-items:center;gap:.5rem;}
+.nav-logo .r{color:var(--red)}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.nav-right{font-size:.8rem;color:var(--gray);letter-spacing:.05em}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 1.5rem 80px;text-align:center;overflow:hidden;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--border);padding:.3rem 1rem;border-radius:999px;font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-bottom:2.5rem;animation:fadeUp .8s ease both;background:rgba(255,255,255,.02);}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:var(--red);box-shadow:0 0 6px var(--red);}
+.hero-title{font-family:var(--font2);font-size:clamp(2.8rem,7vw,6rem);font-weight:700;line-height:1.05;letter-spacing:-.03em;margin-bottom:1.5rem;animation:fadeUp .8s .1s ease both;}
+.hero-title .rd{color:var(--red);position:relative;}
+.hero-title .rd::after{content:'';position:absolute;left:0;bottom:-4px;right:0;height:2px;background:linear-gradient(90deg,var(--red),transparent);border-radius:2px;}
+.hero-title .dm{color:var(--muted)}
+.hero-sub{max-width:540px;font-size:1.05rem;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:3rem;animation:fadeUp .8s .2s ease both;}
+.hero-btns{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .3s ease both;}
+.btn-p{display:inline-flex;align-items:center;gap:.6rem;background:var(--red);color:var(--white);font-family:var(--font);font-size:.9rem;font-weight:600;padding:.85rem 2rem;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 0 30px var(--red-glow);}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(255,59,48,.4);background:#ff4f45;}
+.btn-g{display:inline-flex;align-items:center;gap:.5rem;color:var(--gray);font-size:.88rem;font-weight:400;text-decoration:none;border:1px solid var(--border);padding:.85rem 1.75rem;border-radius:8px;transition:all .2s;}
+.btn-g:hover{color:var(--white);border-color:var(--border-hover)}
+.hero-stats{display:flex;gap:3rem;margin-top:5rem;border-top:1px solid var(--border);padding-top:2.5rem;animation:fadeUp .8s .4s ease both;flex-wrap:wrap;justify-content:center;}
+.stat-i{text-align:center}
+.stat-n{font-family:var(--font2);font-size:1.8rem;font-weight:700;color:var(--white);display:block;}
+.stat-n .r{color:var(--red)}
+.stat-l{font-size:.72rem;color:var(--gray);letter-spacing:.05em;text-transform:uppercase}
+.divider{position:relative;z-index:1;height:1px;background:var(--border);}
+.section{position:relative;z-index:1;padding:6rem 1.5rem;}
+.si{max-width:900px;margin:0 auto}
+.sw{max-width:1100px;margin:0 auto}
+.stag{display:inline-flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem;}
+.stag::before{content:'';width:20px;height:1px;background:var(--red);}
+.stitle{font-family:var(--font2);font-size:clamp(1.8rem,4vw,3rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:1rem;}
+.ssub{font-size:1rem;color:var(--gray);line-height:1.7;max-width:560px;margin-bottom:3rem;font-weight:300;}
+.quiz-shell{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.qprog{display:flex;align-items:center;gap:1rem;padding:1.25rem 2rem;border-bottom:1px solid var(--border);}
+.psteps{display:flex;gap:.4rem;flex:1}
+.pstep{flex:1;height:2px;background:var(--muted);border-radius:2px;transition:background .4s;}
+.pstep.done{background:var(--red)}
+.pstep.act{background:linear-gradient(90deg,var(--red),rgba(255,59,48,.3));}
+.plabel{font-size:.75rem;color:var(--gray);white-space:nowrap}
+.qbody{padding:2.5rem 2rem}
+.qb{display:none;animation:fadeUp .3s ease both}
+.qb.active{display:block}
+.qnum{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem;}
+.qtext{font-family:var(--font2);font-size:1.3rem;font-weight:600;letter-spacing:-.02em;margin-bottom:.4rem;line-height:1.3;}
+.qhint{font-size:.82rem;color:var(--gray);margin-bottom:1.75rem}
+.opts{display:flex;flex-direction:column;gap:.6rem}
+.opt{display:flex;align-items:flex-start;gap:.9rem;padding:1rem 1.25rem;border:1px solid var(--border);border-radius:10px;background:transparent;cursor:pointer;text-align:left;width:100%;color:var(--white);font-family:var(--font);font-size:.9rem;transition:all .18s;position:relative;overflow:hidden;}
+.opt::before{content:'';position:absolute;inset:0;background:var(--red-dim);opacity:0;transition:opacity .2s;}
+.opt:hover{border-color:var(--border-hover)}
+.opt:hover::before{opacity:1}
+.opt.sel{border-color:var(--red);background:var(--red-dim)}
+.opt.sel::before{opacity:0}
+.okey{width:26px;height:26px;min-width:26px;border:1px solid var(--muted);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--gray);transition:all .18s;letter-spacing:.05em;}
+.opt.sel .okey{background:var(--red);border-color:var(--red);color:var(--white);}
+.obody strong{display:block;font-weight:500;color:var(--white);margin-bottom:.1rem}
+.obody span{font-size:.8rem;color:var(--gray)}
+.qfoot{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.bbk{font-size:.82rem;color:var(--gray);background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:color .2s;}
+.bbk:hover{color:var(--white)}
+.bnx{display:inline-flex;align-items:center;gap:.5rem;background:var(--red);color:var(--white);font-family:var(--font);font-size:.88rem;font-weight:600;padding:.7rem 1.75rem;border-radius:8px;border:none;cursor:pointer;transition:all .2s;}
+.bnx:hover{background:#ff4f45;transform:translateY(-1px)}
+.bnx:disabled{background:var(--muted);cursor:not-allowed;transform:none}
+.fshell{display:none;animation:fadeUp .35s ease both}
+.fshell.active{display:block}
+.ftop{padding:2rem 2rem 0;border-bottom:1px solid var(--border);}
+.ftag{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;}
+.ftitle{font-family:var(--font2);font-size:1.2rem;font-weight:600;letter-spacing:-.02em;margin-bottom:1.5rem;line-height:1.3;}
+.ffields{padding:2rem}
+.flbl{display:block;font-size:.72rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--gray);margin-bottom:.5rem;}
+.finp{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--white);font-family:var(--font);font-size:.95rem;padding:.8rem 1rem;outline:none;transition:border-color .2s,box-shadow .2s;margin-bottom:1.25rem;}
+.finp:focus{border-color:var(--red);box-shadow:0 0 0 3px var(--red-dim);}
+.finp::placeholder{color:var(--muted)}
+.bsub{width:100%;background:var(--red);color:var(--white);font-family:var(--font);font-size:.95rem;font-weight:600;padding:.9rem;border-radius:8px;border:none;cursor:pointer;transition:all .2s;margin-top:.25rem;box-shadow:0 0 20px var(--red-glow);}
+.bsub:hover{background:#ff4f45}
+.disc{font-size:.72rem;color:var(--muted);text-align:center;margin-top:.75rem}
+.rshell{display:none;animation:fadeUp .4s ease both}
+.rshell.active{display:block}
+.rtop{padding:2.5rem 2rem;background:linear-gradient(135deg,rgba(255,59,48,.12) 0%,transparent 60%);border-bottom:1px solid var(--border);}
+.rtag{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:.75rem;display:flex;align-items:center;gap:.4rem;}
+.rtag::before{content:'✓';font-size:.8rem}
+.rttl{font-family:var(--font2);font-size:1.5rem;font-weight:700;letter-spacing:-.03em;line-height:1.2;margin-bottom:.75rem;}
+.rsub{font-size:.9rem;color:var(--gray);line-height:1.65;max-width:500px}
+.rpkg{padding:2rem}
+.rpri-label{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;}
+.rpri-num{font-family:var(--font2);font-size:2.5rem;font-weight:700;color:var(--red);line-height:1;opacity:.25;}
+.rpri-tag{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
+.rpkgnm{font-family:var(--font2);font-size:1.35rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.2rem;}
+.rprice{font-family:var(--font2);font-size:2.2rem;font-weight:700;color:var(--red);letter-spacing:-.03em;line-height:1;}
+.rpvc{font-size:.78rem;color:var(--gray);margin-bottom:1.5rem;margin-top:.2rem;}
+.rlist{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.25rem}
+.rlist li{display:flex;align-items:center;gap:.75rem;font-size:.88rem;color:rgba(255,255,255,.8);}
+.rlist li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0;box-shadow:0 0 5px var(--red);}
+.rwhy-box{background:rgba(255,59,48,.06);border:1px solid rgba(255,59,48,.15);border-radius:8px;padding:1rem 1.25rem;font-size:.83rem;color:var(--gray);line-height:1.6;margin-bottom:2rem;}
+.rwhy-box strong{display:block;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:.3rem;}
+.ralt-label{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.ralt-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:2rem;}
+.ralt-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;cursor:pointer;transition:border-color .2s;}
+.ralt-card:hover{border-color:var(--border-hover)}
+.ralt-order{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;}
+.ralt-name{font-size:.88rem;font-weight:600;color:var(--white);margin-bottom:.2rem;line-height:1.3;}
+.ralt-price{font-family:var(--font2);font-size:1rem;font-weight:700;color:var(--gray);}
+.ralt-why{font-size:.75rem;color:var(--muted);margin-top:.35rem;line-height:1.5;}
+.bwa{display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;background:var(--red);color:var(--white);font-family:var(--font);font-size:.95rem;font-weight:600;padding:.95rem;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 0 24px var(--red-glow);margin-bottom:1rem;}
+.bwa:hover{background:#ff4f45;transform:translateY(-2px)}
+.brst{text-align:center;font-size:.78rem;color:var(--muted);cursor:pointer;transition:color .2s;}
+.brst:hover{color:var(--gray)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;margin-top:3rem;}
+.vc{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .25s,transform .25s,box-shadow .25s;}
+.vc:hover{border-color:rgba(255,59,48,.4);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 30px rgba(255,59,48,.08);}
+.vt{position:relative;aspect-ratio:9/16;max-height:340px;background:var(--surface);overflow:hidden;}
+.vph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;background:linear-gradient(135deg,#111 0%,#0d0d0d 100%);}
+.vov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.2);text-decoration:none;transition:background .2s;}
+.vov:hover{background:rgba(0,0,0,.35)}
+.pbtn{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.vc:hover .pbtn{background:var(--red);border-color:var(--red);box-shadow:0 0 20px var(--red-glow);transform:scale(1.1);}
+.ptri{width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:15px solid white;margin-left:3px;}
+.vbadges{position:absolute;bottom:.75rem;left:.75rem;display:flex;gap:.4rem;}
+.vbadge{background:rgba(0,0,0,.72);backdrop-filter:blur(6px);padding:.18rem .55rem;border-radius:4px;font-size:.68rem;font-weight:600;color:var(--white);letter-spacing:.04em;}
+.client-block{margin-bottom:3rem}
+.client-header{display:flex;align-items:baseline;gap:.75rem;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border);}
+.client-label{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);flex-shrink:0;}
+.client-name{font-family:var(--font2);font-size:1.1rem;font-weight:700;color:var(--white);}
+.client-niche{font-size:.8rem;color:var(--gray);}
+.ss-bg{position:absolute;inset:0;background-size:cover;background-repeat:no-repeat;}
+.vbody{padding:1.25rem 1.5rem 1.5rem}
+.vstruct{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;}
+.vtitle{font-family:var(--font2);font-size:1rem;font-weight:600;letter-spacing:-.02em;line-height:1.3;margin-bottom:.75rem;color:var(--white);}
+.vwlbl{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+.vwhy{font-size:.83rem;color:var(--gray);line-height:1.6;margin-bottom:1rem}
+.vlink{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:600;color:var(--red);text-decoration:none;letter-spacing:.03em;transition:gap .2s;}
+.vlink:hover{gap:.65rem}
+.cchip{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--border);border-radius:999px;padding:.3rem .8rem;font-size:.75rem;color:var(--gray);margin-bottom:1rem;background:var(--surface);}
+.cdot{width:5px;height:5px;border-radius:50%;background:var(--red);box-shadow:0 0 4px var(--red)}
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:3rem 1.5rem;text-align:center;}
+.flogo{font-family:var(--font2);font-size:1.1rem;font-weight:700;letter-spacing:.15em;margin-bottom:.4rem;}
+.flogo .r{color:var(--red)}
+.fhandle{font-size:.8rem;color:var(--gray);margin-bottom:2rem}
+.fcopy{font-size:.72rem;color:var(--muted)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
+.rv.in{opacity:1;transform:translateY(0)}
+@media(max-width:768px){
+  nav{padding:0 1.25rem}
+  .hero{padding:90px 1.25rem 60px}
+  .section{padding:4rem 1.25rem}
+  .qbody,.ffields,.rpkg{padding:1.75rem 1.25rem}
+  .rtop,.ftop{padding:1.75rem 1.25rem 0}
+  .hero-stats{gap:1.5rem}
+  .vgrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="mesh"></div>
+<div class="grid-overlay"></div>
+
+<nav>
+  <div class="nav-logo"><span class="r">P</span>.<span class="r">A</span>.<span class="r">E</span>.<div class="nav-dot"></div></div>
+  <div class="nav-right">@raul_sanzz · Puebla, México</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><div class="badge-dot"></div>Diagnóstico gratuito · P.A.E.</div>
+  <h1 class="hero-title">Tu negocio merece<br>contenido que<br><span class="rd">convierte.</span></h1>
+  <p class="hero-sub">Responde 4 preguntas y descubre exactamente qué sistema de contenido tiene sentido para tu etapa actual. Sin rodeos.</p>
+  <div class="hero-btns">
+    <a href="#quiz" class="btn-p">Hacer el diagnóstico <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a href="#videos" class="btn-g">Ver resultados reales</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-i"><span class="stat-n"><span class="r">10K</span></span><span class="stat-l">Repros en 4 días</span></div>
+    <div class="stat-i"><span class="stat-n">33</span><span class="stat-l">Estructuras probadas</span></div>
+    <div class="stat-i"><span class="stat-n"><span class="r">100K</span></span><span class="stat-l">Fórmula base</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- QUIZ -->
+<section class="section" id="quiz">
+<div class="si">
+  <div class="rv">
+    <div class="stag">Diagnóstico</div>
+    <h2 class="stitle">Cuéntame<br>cómo está tu negocio.</h2>
+    <p class="ssub">5 preguntas sobre tu situación real. Sin tecnicismos. Al final te digo exactamente qué tiene sentido para ti.</p>
+  </div>
+  <div class="quiz-shell rv">
+    <div class="qprog" id="qprog">
+      <div class="psteps"><div class="pstep act" id="ps1"></div><div class="pstep" id="ps2"></div><div class="pstep" id="ps3"></div><div class="pstep" id="ps4"></div><div class="pstep" id="ps5"></div></div>
+      <div class="plabel" id="plbl">1 / 5</div>
+    </div>
+    <div class="qbody">
+      <!-- Q1 -->
+      <div class="qb active" id="q1">
+        <div class="qnum">01 / 05</div>
+        <div class="qtext">Cuando alguien te pregunta cómo consigues clientes, ¿qué les dices?</div>
+        <div class="qhint">No hay respuesta incorrecta — esto me ayuda a entender tu punto de partida.</div>
+        <div class="opts">
+          <button class="opt" data-q="1" data-v="0" onclick="pick(this)"><div class="okey">A</div><div class="obody"><strong>"La verdad aún no tengo claro cómo"</strong><span>Llegan solos, por recomendación o de vez en cuando</span></div></button>
+          <button class="opt" data-q="1" data-v="1" onclick="pick(this)"><div class="okey">B</div><div class="obody"><strong>"Publico en redes pero no sé si funciona"</strong><span>Tengo presencia pero no puedo medir si genera ventas</span></div></button>
+          <button class="opt" data-q="1" data-v="2" onclick="pick(this)"><div class="okey">C</div><div class="obody"><strong>"El contenido me trae prospectos pero pocos cierran"</strong><span>Hay movimiento pero la conversión es baja</span></div></button>
+          <button class="opt" data-q="1" data-v="3" onclick="pick(this)"><div class="okey">D</div><div class="obody"><strong>"Ya tengo un sistema, quiero que produzca más"</strong><span>El contenido convierte, busco escalar el volumen</span></div></button>
+        </div>
+        <div class="qfoot"><div></div><button class="bnx" id="n1" disabled onclick="goNext(1)">Siguiente <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+      </div>
+      <!-- Q2 -->
+      <div class="qb" id="q2">
+        <div class="qnum">02 / 05</div>
+        <div class="qtext">¿Qué pasa normalmente cuando alguien nuevo llega a tu perfil de redes?</div>
+        <div class="qhint">Piensa en el último mes — ¿qué ven cuando llegan?</div>
+        <div class="opts">
+          <button class="opt" data-q="2" data-v="0" onclick="pick(this)"><div class="okey">A</div><div class="obody"><strong>Casi no hay contenido o está desactualizado</strong><span>Mi perfil no comunica bien lo que hago</span></div></button>
+          <button class="opt" data-q="2" data-v="1" onclick="pick(this)"><div class="okey">B</div><div class="obody"><strong>Hay publicaciones pero no cuentan una historia clara</strong><span>Publico pero sin hilo conductor ni estrategia visible</span></div></button>
+          <button class="opt" data-q="2" data-v="2" onclick="pick(this)"><div class="okey">C</div><div class="obody"><strong>Ven contenido constante pero rara vez me escriben</strong><span>Hay presencia, pero el contenido no los mueve a actuar</span></div></button>
+          <button class="opt" data-q="2" data-v="3" onclick="pick(this)"><div class="okey">D</div><div class="obody"><strong>Ven autoridad — y algunos me contactan directamente</strong><span>Mi perfil ya trabaja solo, quiero que trabaje más</span></div></button>
+        </div>
+        <div class="qfoot"><button class="bbk" onclick="goBack(2)">← Anterior</button><button class="bnx" id="n2" disabled onclick="goNext(2)">Siguiente <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+      </div>
+      <!-- Q3 -->
+      <div class="qb" id="q3">
+        <div class="qnum">03 / 05</div>
+        <div class="qtext">Cuando un prospecto llega a ti, ¿qué tanto trabajo tienes que hacer para convencerlo?</div>
+        <div class="qhint">Esto me dice si tu contenido está haciendo su trabajo o no.</div>
+        <div class="opts">
+          <button class="opt" data-q="3" data-v="0" onclick="pick(this)"><div class="okey">A</div><div class="obody"><strong>Mucho — tengo que explicar todo desde cero</strong><span>No saben quién soy ni qué hago antes de contactarme</span></div></button>
+          <button class="opt" data-q="3" data-v="1" onclick="pick(this)"><div class="okey">B</div><div class="obody"><strong>Bastante — conocen algo pero tienen muchas dudas</strong><span>Mi contenido genera curiosidad pero no convicción</span></div></button>
+          <button class="opt" data-q="3" data-v="2" onclick="pick(this)"><div class="okey">C</div><div class="obody"><strong>Poco — ya vieron mis videos y llegan con intención</strong><span>El contenido los calienta, pero el cierre sigue siendo mío</span></div></button>
+          <button class="opt" data-q="3" data-v="3" onclick="pick(this)"><div class="okey">D</div><div class="obody"><strong>Casi nada — llegan listos para comprar</strong><span>El sistema trabaja solo, solo necesito más volumen</span></div></button>
+        </div>
+        <div class="qfoot"><button class="bbk" onclick="goBack(3)">← Anterior</button><button class="bnx" id="n3" disabled onclick="goNext(3)">Siguiente <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+      </div>
+      <!-- Q4 -->
+      <div class="qb" id="q4">
+        <div class="qnum">04 / 05</div>
+        <div class="qtext">¿Qué tan seguido pierdes un prospecto porque no te recuerdan o te comparan con alguien más barato?</div>
+        <div class="qhint">La frecuencia me dice qué tan urgente es construir autoridad.</div>
+        <div class="opts">
+          <button class="opt" data-q="4" data-v="0" onclick="pick(this)"><div class="okey">A</div><div class="obody"><strong>Todo el tiempo — el precio siempre es el tema</strong><span>Compiten conmigo por precio porque no ven diferencia</span></div></button>
+          <button class="opt" data-q="4" data-v="1" onclick="pick(this)"><div class="okey">B</div><div class="obody"><strong>Seguido — a veces me eligen, a veces no</strong><span>No tengo claro qué hace que unos sí y otros no</span></div></button>
+          <button class="opt" data-q="4" data-v="2" onclick="pick(this)"><div class="okey">C</div><div class="obody"><strong>Poco — casi siempre cierro si llego a la conversación</strong><span>El problema no es el cierre, es llegar a más prospectos</span></div></button>
+          <button class="opt" data-q="4" data-v="3" onclick="pick(this)"><div class="okey">D</div><div class="obody"><strong>Casi nunca — mi marca ya genera diferenciación</strong><span>Quiero mantener ese nivel y aumentar el volumen</span></div></button>
+        </div>
+        <div class="qfoot"><button class="bbk" onclick="goBack(4)">← Anterior</button><button class="bnx" id="n4" disabled onclick="goNext(4)">Siguiente <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+      </div>
+      <!-- Q5 -->
+      <div class="qb" id="q5">
+        <div class="qnum">05 / 05</div>
+        <div class="qtext">Si mañana tu contenido empezara a atraer prospectos todos los días, ¿tienes cómo recibirlos?</div>
+        <div class="qhint">Esto define si solo necesitas contenido o también un sistema de captura.</div>
+        <div class="opts">
+          <button class="opt" data-q="5" data-v="0" onclick="pick(this)"><div class="okey">A</div><div class="obody"><strong>No — no tengo nada armado para recibirlos</strong><span>Si llegaran muchos a la vez, se me irían sin respuesta</span></div></button>
+          <button class="opt" data-q="5" data-v="1" onclick="pick(this)"><div class="okey">B</div><div class="obody"><strong>Más o menos — los recibo pero sin un proceso claro</strong><span>Respondo cuando puedo, pero no hay sistema</span></div></button>
+          <button class="opt" data-q="5" data-v="2" onclick="pick(this)"><div class="okey">C</div><div class="obody"><strong>Sí — tengo WhatsApp activo y puedo atenderlos</strong><span>El flujo de atención funciona, solo necesito más prospectos</span></div></button>
+          <button class="opt" data-q="5" data-v="3" onclick="pick(this)"><div class="okey">D</div><div class="obody"><strong>Sí, y quiero automatizarlo para no depender de mí</strong><span>Busco que el sistema capture y clasifique solo</span></div></button>
+        </div>
+        <div class="qfoot"><button class="bbk" onclick="goBack(5)">← Anterior</button><button class="bnx" id="n5" disabled onclick="showForm()">Ver mi diagnóstico <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+      </div>
+      <!-- FORM -->
+      <div class="fshell" id="lf">
+        <div class="ftop"><div class="ftag">Último paso</div><div class="ftitle">Tu diagnóstico está listo.<br>¿A dónde te lo enviamos?</div></div>
+        <div class="ffields">
+          <label class="flbl" for="fn">Nombre</label><input class="finp" type="text" id="fn" placeholder="¿Cómo te llamas?">
+          <label class="flbl" for="fw">WhatsApp</label><input class="finp" type="tel" id="fw" placeholder="Número con código de país (52...)">
+          <label class="flbl" for="fe">Email</label><input class="finp" type="email" id="fe" placeholder="tu@correo.com">
+          <button class="bsub" onclick="submitLead()">Ver mi recomendación →</button>
+          <p class="disc">Sin spam. Solo para el diagnóstico y seguimiento.</p>
+        </div>
+      </div>
+      <!-- RESULT -->
+      <div class="rshell" id="rs">
+        <div class="rtop">
+          <div class="rtag">Diagnóstico completado</div>
+          <div class="rttl" id="rTtl">—</div>
+          <div class="rsub" id="rSub">—</div>
+        </div>
+        <div class="rpkg">
+          <!-- PRIMARY -->
+          <div class="rpri-label">
+            <span class="rpri-num">01</span>
+            <span class="rpri-tag">Recomendación principal</span>
+          </div>
+          <div class="rpkgnm" id="rNm">—</div>
+          <div class="rprice" id="rPr">—</div>
+          <div class="rpvc" id="rPvc">—</div>
+          <ul class="rlist" id="rLst"></ul>
+          <div class="rwhy-box" id="rWhy"></div>
+
+          <!-- ALTERNATIVAS -->
+          <div class="ralt-label">También puedes considerar</div>
+          <div class="ralt-grid" id="rAltGrid"></div>
+
+          <a class="bwa" id="rCTA" href="#" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.121.554 4.112 1.523 5.837L.057 23.982l6.304-1.634A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.373l-.36-.214-3.714.963.99-3.614-.235-.374A9.818 9.818 0 1112 21.818z"/></svg>
+            Quiero hablar con Raúl
+          </a>
+          <div class="brst" onclick="restart()">↺ Volver a hacer el diagnóstico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VIDEOS -->
+<section class="section" id="videos">
+<div class="sw">
+  <div class="rv">
+    <div class="stag">Resultados reales</div>
+    <h2 class="stitle">Videos que funcionaron.<br><span style="color:var(--muted)">Por qué funcionaron.</span></h2>
+    <p class="ssub">4 clientes. 3 nichos distintos. Un mismo sistema — Fórmula 100K aplicada a cada video según su objetivo, estructura y gancho. Esto es lo que produce.</p>
+  </div>
+
+  <!-- CLIENTE: NÉA Nail Space -->
+  <div class="client-block rv">
+    <div class="client-header">
+      <div class="client-label">Cliente</div>
+      <div class="client-name">NÉA Nail Space</div>
+      <div class="client-niche">Nail Studio · Puebla</div>
+    </div>
+    <div class="vgrid" style="grid-template-columns:1fr">
+      <div class="vc">
+        <div class="vt" style="max-height:420px">
+          <div class="ss-bg" style="id='th-nea' style='background-color:#1a1a1a;background-size:cover;background-position:center top;"></div>
+          <a class="vov" href="https://www.instagram.com/reel/DX8KEunkV3-/" target="_blank" rel="noopener"><div class="pbtn"><div class="ptri"></div></div></a>
+          <div class="vbadges"><div class="vbadge hot">10K+ en 4 días</div><div class="vbadge">Sin pauta</div><div class="vbadge">Instagram</div></div>
+        </div>
+        <div class="vbody">
+          <div class="vstruct">Estructura · El Espejo + FOMO</div>
+          <div class="vtitle">Inauguración NÉA Nail Space</div>
+          <div class="vwlbl">Por qué funcionó</div>
+          <div class="vwhy">El hook verbalizó el miedo a quedarse fuera de algo nuevo y exclusivo. Identidad + urgencia en los primeros 3 segundos dispararon retención y shares orgánicos. 10K reproducciones en 4 días sin invertir un peso en pauta.</div>
+          <a class="vlink" href="https://www.instagram.com/reel/DX8KEunkV3-/" target="_blank" rel="noopener">Ver en Instagram →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTE: Cacao Cósmico -->
+  <div class="client-block rv">
+    <div class="client-header">
+      <div class="client-label">Cliente</div>
+      <div class="client-name">Cacao Cósmico</div>
+      <div class="client-niche">Barra de Cacao & Bienestar · Cholula</div>
+    </div>
+    <div class="vgrid" style="grid-template-columns:1fr">
+      <div class="vc">
+        <div class="vt" style="max-height:420px">
+          <div class="ss-bg" style="id='th-cacao' style='background-color:#1a1a1a;background-size:cover;background-position:center top;"></div>
+          <a class="vov" href="https://www.instagram.com/reel/DWU1jNYkUl_/" target="_blank" rel="noopener"><div class="pbtn"><div class="ptri"></div></div></a>
+          <div class="vbadges"><div class="vbadge hot">32 comentarios</div><div class="vbadge">21 shares</div><div class="vbadge">Instagram</div></div>
+        </div>
+        <div class="vbody">
+          <div class="vstruct">Estructura · Vacío de Información + Corrección de Creencia</div>
+          <div class="vtitle">No es café, es Cacao Cósmico con Potenciadores</div>
+          <div class="vwlbl">Por qué funcionó</div>
+          <div class="vwhy">El gancho "NO ES CAFÉ" activa disonancia inmediata — el espectador ya tiene una creencia formada y el video la rompe. Eso dispara el tiempo de retención porque necesitan saber la respuesta. La corrección de creencia es uno de los ganchos más poderosos de la Fórmula 100K.</div>
+          <a class="vlink" href="https://www.instagram.com/reel/DWU1jNYkUl_/" target="_blank" rel="noopener">Ver en Instagram →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTE: Asesores Digitales G · Geely -->
+  <div class="client-block rv">
+    <div class="client-header">
+      <div class="client-label">Cliente</div>
+      <div class="client-name">Asesores Digitales G</div>
+      <div class="client-niche">Concesionaria Geely · Puebla</div>
+    </div>
+    <div class="vgrid">
+      <div class="vc rv">
+        <div class="vt">
+          <div class="ss-bg" style="id='th-tk1' style='background-color:#1a1a1a;background-size:cover;background-position:center;"></div>
+          <a class="vov" href="https://vt.tiktok.com/ZSxfa8Wwp/" target="_blank" rel="noopener"><div class="pbtn"><div class="ptri"></div></div></a>
+          <div class="vbadges"><div class="vbadge hot">4,191 likes</div><div class="vbadge">820 guardados</div><div class="vbadge">TikTok</div></div>
+        </div>
+        <div class="vbody">
+          <div class="vstruct">Estructura · Transformación Emocional</div>
+          <div class="vtitle">Tu primer auto: más que solo diseño</div>
+          <div class="vwlbl">Por qué funcionó</div>
+          <div class="vwhy">Hook desde el interior del auto — el espectador se proyecta en el asiento del conductor antes de que empiece el argumento. El encuadre íntimo baja la guardia y el mensaje llega sin resistencia.</div>
+          <a class="vlink" href="https://vt.tiktok.com/ZSxfa8Wwp/" target="_blank" rel="noopener">Ver en TikTok →</a>
+        </div>
+      </div>
+      <div class="vc rv">
+        <div class="vt">
+          <div class="ss-bg" style="id='th-tk2' style='background-color:#1a1a1a;background-size:cover;background-position:center;"></div>
+          <a class="vov" href="https://vt.tiktok.com/ZSxfa1jnb/" target="_blank" rel="noopener"><div class="pbtn"><div class="ptri"></div></div></a>
+          <div class="vbadges"><div class="vbadge hot">2,726 likes</div><div class="vbadge">453 guardados</div><div class="vbadge">TikTok</div></div>
+        </div>
+        <div class="vbody">
+          <div class="vstruct">Estructura · El Problema Invisible</div>
+          <div class="vtitle">Lo que realmente importa está por debajo</div>
+          <div class="vwlbl">Por qué funcionó</div>
+          <div class="vwhy">La palabra "NO" en pantalla junto al movimiento de mano crea pausa involuntaria en el scroll. El video revela información que el prospecto no sabía que necesitaba — estructura de autoridad pura.</div>
+          <a class="vlink" href="https://vt.tiktok.com/ZSxfa1jnb/" target="_blank" rel="noopener">Ver en TikTok →</a>
+        </div>
+      </div>
+      <div class="vc rv">
+        <div class="vt">
+          <div class="ss-bg" style="id='th-tk3' style='background-color:#1a1a1a;background-size:cover;background-position:center;"></div>
+          <a class="vov" href="https://vt.tiktok.com/ZSxfaxgXF/" target="_blank" rel="noopener"><div class="pbtn"><div class="ptri"></div></div></a>
+          <div class="vbadges"><div class="vbadge hot">2,249 likes</div><div class="vbadge">466 guardados</div><div class="vbadge">TikTok</div></div>
+        </div>
+        <div class="vbody">
+          <div class="vstruct">Estructura · Vacío de Información</div>
+          <div class="vtitle">Ésto pasa después de firmar</div>
+          <div class="vwlbl">Por qué funcionó</div>
+          <div class="vwhy">El texto "Ésto pasa después de firmar" activa curiosidad inmediata — nadie te cuenta esa parte. Gancho textual poderoso que obliga a seguir viendo. El overlay gráfico del contrato refuerza visualmente el mensaje.</div>
+          <a class="vlink" href="https://vt.tiktok.com/ZSxfaxgXF/" target="_blank" rel="noopener">Ver en TikTok →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTE: Don Elote -->
+  <div class="client-block rv">
+    <div class="client-header">
+      <div class="client-label">Cliente</div>
+      <div class="client-name">Don Elote</div>
+      <div class="client-niche">Antojitos Poblanos · Puebla</div>
+    </div>
+    <div class="vgrid" style="grid-template-columns:1fr 1fr">
+      <div class="vc rv">
+        <div class="vt">
+          <div class="ss-bg" style="id='th-tk4' style='background-color:#1a1a1a;background-size:cover;background-position:center;"></div>
+          <a class="vov" href="https://vt.tiktok.com/ZSxfaqfxm/" target="_blank" rel="noopener"><div class="pbtn"><div class="ptri"></div></div></a>
+          <div class="vbadges"><div class="vbadge hot">7,117 likes</div><div class="vbadge">2,257 guardados</div><div class="vbadge">TikTok</div></div>
+        </div>
+        <div class="vbody">
+          <div class="vstruct">Estructura · 100% Viral — Identidad Local</div>
+          <div class="vtitle">El elote clásico de Puebla</div>
+          <div class="vwlbl">Por qué funcionó</div>
+          <div class="vwhy">El gancho visual es el producto en primer plano — sin necesidad de texto. "Clásico" activa nostalgia e identidad regional instantánea. Los 2,257 guardados indican intención real de visita.</div>
+          <a class="vlink" href="https://vt.tiktok.com/ZSxfaqfxm/" target="_blank" rel="noopener">Ver en TikTok →</a>
+        </div>
+      </div>
+      <div class="vc rv">
+        <div class="vt">
+          <div class="ss-bg" style="id='th-tk5' style='background-color:#1a1a1a;background-size:cover;background-position:center;"></div>
+          <a class="vov" href="https://vt.tiktok.com/ZSxfayTgH/" target="_blank" rel="noopener"><div class="pbtn"><div class="ptri"></div></div></a>
+          <div class="vbadges"><div class="vbadge hot">9,615 likes</div><div class="vbadge">1,413 guardados</div><div class="vbadge">TikTok</div></div>
+        </div>
+        <div class="vbody">
+          <div class="vstruct">Estructura · Deseo + Precio Ancla</div>
+          <div class="vtitle">El Especial Don Elote — $110</div>
+          <div class="vwlbl">Por qué funcionó</div>
+          <div class="vwhy">El producto se vende solo visualmente — el antojo es el gancho. Incluir el precio convierte la emoción en decisión inmediata. 1,413 guardados equivalen a 1,413 personas con intención de compra activa.</div>
+          <a class="vlink" href="https://vt.tiktok.com/ZSxfayTgH/" target="_blank" rel="noopener">Ver en TikTok →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+<footer>
+  <div class="flogo"><span class="r">P</span>.<span class="r">A</span>.<span class="r">E</span>.</div>
+  <div class="fhandle">by Raúl Sanzz · @raul_sanzz · Puebla, México</div>
+  <div class="fcopy">© 2025 Raúl Sanzz — Todos los derechos reservados.</div>
+</footer>
+
+<script>
+const WA="522212345678";
+const ans={};
+
+function pick(b){
+  const q=b.dataset.q,v=parseInt(b.dataset.v);
+  b.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  b.classList.add('sel');
+  ans[q]=v;
+  document.getElementById('n'+q).disabled=false;
+}
+
+function goNext(c){
+  document.getElementById('q'+c).classList.remove('active');
+  document.getElementById('q'+(c+1)).classList.add('active');
+  setP(c+1);
+}
+
+function goBack(c){
+  document.getElementById('q'+c).classList.remove('active');
+  document.getElementById('q'+(c-1)).classList.add('active');
+  setP(c-1);
+}
+
+function setP(s){
+  document.getElementById('plbl').textContent=s+' / 5';
+  [1,2,3,4,5].forEach(i=>{
+    const e=document.getElementById('ps'+i);
+    e.className='pstep'+(i<s?' done':i===s?' act':'');
+  });
+}
+
+function showForm(){
+  document.getElementById('q5').classList.remove('active');
+  document.getElementById('qprog').style.display='none';
+  document.getElementById('lf').classList.add('active');
+}
+
+function submitLead(){
+  const n=document.getElementById('fn').value.trim();
+  const w=document.getElementById('fw').value.trim();
+  const e=document.getElementById('fe').value.trim();
+  if(!n||!w||!e){alert('Por favor completa todos los campos.');return;}
+  document.getElementById('lf').classList.remove('active');
+  showResult(n,w,e);
+}
+
+// ── CATÁLOGO ──
+const CATALOG={
+  p1:{name:"1 Video Estratégico",price:"$1,250 MXN",pvc:"Punto de entrada para validar estilo y mensaje",includes:["Guionización con Fórmula 100K","Sistema de 3 ganchos (verbal, visual, textual)","Estructura elegida según tu objetivo","Edición profesional + subtítulos + CTA","Validación de enfoque de marca"],alt_name:"1 Video",alt_price:"$1,250 MXN"},
+  p3:{name:"3 Videos — Mini Campaña",price:"$2,700 MXN",pvc:"$900 MXN por video · 3 ángulos estratégicos distintos",includes:["Alcance + Valor + Venta en un solo paquete","Guionización completa de los 3 videos","Ganchos personalizados por objetivo","Edición + subtítulos + CTAs diferenciados","Calendario de publicación recomendado"],alt_name:"3 Videos",alt_price:"$2,700 MXN"},
+  p10:{name:"10 Videos Mensuales",price:"$8,000 MXN / mes",pvc:"$800 MXN por video · 1 sesión de grabación incluida",includes:["Estrategia editorial mensual completa","Guionización de los 10 videos (Fórmula 100K)","1 sesión de grabación + edición profesional","CTAs + calendario de publicación","Seguimiento de métricas básico"],alt_name:"10 Videos / mes",alt_price:"$8,000 MXN"},
+  p20:{name:"20 Videos Mensuales",price:"$16,000 MXN / mes",pvc:"$800 MXN por video · 2 sesiones de grabación incluidas",includes:["Estrategia de contenido escalada","Guionización de los 20 videos (Fórmula 100K)","2 sesiones de grabación + edición completa","CTAs + calendario + reporte de métricas","Mayor velocidad de posicionamiento"],alt_name:"20 Videos / mes",alt_price:"$16,000 MXN"},
+  c10:{name:"10 Videos + Landing + CRM + Publicidad",price:"$17,000 MXN / mes",pvc:"Sistema completo de captación · todo automatizado",includes:["10 videos estratégicos mensuales","Landing page con diagnóstico interactivo","CRM automático con notificación a ventas","Campañas de apoyo sobre videos orgánicos","Pipeline + reporte mensual"],alt_name:"10 Videos + Sistema",alt_price:"$17,000 MXN"},
+  c20:{name:"20 Videos + Landing + CRM + Publicidad",price:"$24,500 MXN / mes",pvc:"Sistema completo máximo · todo incluido",includes:["20 videos estratégicos mensuales","Landing avanzada + CRM + pipeline comercial","2 sesiones de grabación + edición completa","Campañas + reunión estratégica mensual","Reporte de métricas y plan del siguiente ciclo"],alt_name:"20 Videos + Sistema",alt_price:"$24,500 MXN"}
+};
+
+// ── PERFILADO POR SITUACIÓN ──
+// q1: cómo consigues clientes (0=sin sistema, 1=publica sin saber, 2=convierte poco, 3=escalar)
+// q2: qué ven en tu perfil (0=vacío, 1=sin hilo, 2=constante sin acción, 3=autoridad)
+// q3: cuánto trabajo convencer (0=todo, 1=bastante, 2=poco, 3=nada)
+// q4: frecuencia de perder por precio (0=siempre, 1=seguido, 2=poco, 3=nunca)
+// q5: sistema de recepción de leads (0=nada, 1=caótico, 2=manual ok, 3=quiere automatizar)
+
+function getRecommendation(){
+  const q1=ans[1]??0, q2=ans[2]??0, q3=ans[3]??0, q4=ans[4]??0, q5=ans[5]??0;
+
+  // Puntaje de madurez digital (0-12)
+  const madurez = q1 + q2 + q3 + q4;
+  // Necesita automatización si q5 es 0,1 o 3
+  const necesitaSistema = q5===0 || q5===1 || q5===3;
+  // Urgencia de autoridad alta si pierde por precio seguido
+  const urgenciaAutoridad = q4<=1;
+  // Ya tiene tracción y solo necesita escalar
+  const listo_escalar = madurez >= 10;
+  // Etapa media: tiene algo pero no convierte bien
+  const etapa_media = madurez >= 5 && madurez < 10;
+  // Principiante: sin sistema claro
+  const principiante = madurez < 5;
+
+  if(listo_escalar && necesitaSistema){
+    return{primary:'c20',
+      title:'Tu negocio está listo para el sistema completo.',
+      sub:'Ya tienes tracción — el siguiente paso no es más contenido, es un sistema que capture lo que ese contenido genera. Automatizar aquí multiplica lo que ya funciona.',
+      why:'Las respuestas indican que tu contenido ya tiene impacto pero los prospectos no están siendo capturados de forma sistemática. Con 20 videos más landing y CRM, cada pieza de contenido trabaja en captación 24/7, no solo mientras estás presente.',
+      alts:[{key:'c10',reason:'Si prefieres iniciar con 10 videos y sistema completo antes de ir a 20, este es el paso anterior con todo el stack de captación.'},{key:'p20',reason:'Si prefieres arrancar con el volumen de 20 videos sin captación automatizada, esta es la alternativa de contenido puro.'}]};
+  }
+
+  if(listo_escalar && !necesitaSistema){
+    return{primary:'p20',
+      title:'Tu sistema funciona. Toca escalar el volumen.',
+      sub:'Ya tienes el proceso de atención resuelto y el contenido convierte. Lo que falta es más presencia, más frecuencia y más algoritmo a tu favor.',
+      why:'Con un sistema de recepción de leads funcionando y contenido que ya convierte, el único limitante es el volumen. 20 videos al mes al mismo precio por video que 10 es la opción más eficiente para ti ahora mismo.',
+      alts:[{key:'c20',reason:'Si en algún momento quieres automatizar también la captación, el upgrade al sistema completo es el paso natural.'},{key:'p10',reason:'Si quieres probar la metodología con 10 videos antes de comprometerte al doble, esta es la base.'}]};
+  }
+
+  if(etapa_media && necesitaSistema){
+    return{primary:'c10',
+      title:'Tienes presencia pero necesitas un sistema que la aproveche.',
+      sub:'El problema no es el contenido — es que no tienes dónde aterrizar a los que sí te ven. Sin landing ni CRM, los prospectos se diluyen antes de llegar a ti.',
+      why:'Tus respuestas muestran que hay movimiento digital pero la conversión se escapa. Este paquete ataca los dos frentes al mismo tiempo: más contenido estratégico y un embudo que captura y clasifica automáticamente sin que tengas que estar presente.',
+      alts:[{key:'p10',reason:'Si prefieres empezar con el contenido y agregar la captación después cuando el volumen lo justifique.'},{key:'c20',reason:'Si quieres ir directo al máximo desde el inicio con 20 videos + sistema completo.'}]};
+  }
+
+  if(etapa_media && !necesitaSistema){
+    return{primary:'p10',
+      title:'10 videos al mes es tu punto de equilibrio.',
+      sub:'Tienes la base — ahora necesitas consistencia y estrategia editorial. Con 10 videos bien construidos al mes, el algoritmo empieza a trabajar para ti de forma sostenida.',
+      why:'Tu situación actual pide volumen constante con estructura. No necesitas automatización todavía — necesitas que cada video cumpla una función específica dentro del embudo. La Fórmula 100K aplicada a 10 videos mensuales es lo que cambia el juego en tu etapa.',
+      alts:[{key:'p3',reason:'Si quieres validar la metodología con 3 videos antes de comprometerte a un mes completo de producción.'},{key:'c10',reason:'Si en algún momento quieres agregar landing y CRM al volumen mensual, este es el upgrade natural.'}]};
+  }
+
+  if(principiante && urgenciaAutoridad){
+    return{primary:'p3',
+      title:'3 videos estratégicos primero. Construir autoridad es urgente.',
+      sub:'Si pierdes prospectos por precio con frecuencia, el problema es que no perciben diferencia entre tú y la competencia. 3 videos bien construidos cambian esa percepción antes que cualquier otra cosa.',
+      why:'La mini campaña de 3 videos es el punto de inflexión más eficiente para tu situación: un video de alcance que llega a nuevos, uno de valor que construye autoridad y uno de venta que activa la decisión. A $900 MXN por video es la inversión más inteligente antes de escalar.',
+      alts:[{key:'p1',reason:'Si quieres empezar con un solo video para validar estilo y tono antes de comprometerte a 3.'},{key:'p10',reason:'Si ya tienes claridad de tu mensaje y quieres presencia constante desde el inicio, puedes ir directo a 10 mensuales.'}]};
+  }
+
+  // Default: principiante sin urgencia extrema → validar primero
+  return{primary:'p1',
+    title:'Un video estratégico es tu mejor primer paso.',
+    sub:'Antes de producir volumen, hay que saber qué funciona. Un video bien construido con la Fórmula 100K te dice más sobre tu audiencia que 20 videos improvisados.',
+    why:'Tu situación indica que todavía estás construyendo las bases. Un primer video estratégico valida el gancho, el tono y el mensaje — y con esa información el siguiente paso se vuelve obvio. Es la forma más inteligente de empezar sin desperdiciar inversión.',
+    alts:[{key:'p3',reason:'Si ya tienes algo de claridad sobre tu mensaje y quieres resultados más rápidos, la mini campaña de 3 videos es el salto directo.'},{key:'p10',reason:'Si estás listo para comprometerte con presencia constante desde el día uno, 10 mensuales te posiciona mucho más rápido.'}]};
+}
+
+// ── ETIQUETAS LEGIBLES POR PREGUNTA ──
+const Q_LABELS={
+  1:["Sin sistema claro","Publica sin estrategia","Alcance sin conversión","Listo para escalar"],
+  2:["Perfil vacío","Sin hilo conductor","Constante sin acción","Genera autoridad"],
+  3:["Explica todo desde cero","Muchas dudas del prospecto","Poco trabajo de cierre","Llegan listos para comprar"],
+  4:["Siempre pierde por precio","Seguido compara precios","Pocas veces compara","Nunca compara precios"],
+  5:["Sin sistema de recepción","Recepción caótica","Manual y funciona","Quiere automatizar"]
+};
+
+function showResult(name,wa,email){
+  const rec=getRecommendation();
+  const pkg=CATALOG[rec.primary];
+
+  document.getElementById('rTtl').textContent=name+', '+rec.title;
+  document.getElementById('rSub').textContent=rec.sub;
+  document.getElementById('rNm').textContent=pkg.name;
+  document.getElementById('rPr').textContent=pkg.price;
+  document.getElementById('rPvc').textContent=pkg.pvc;
+
+  const ul=document.getElementById('rLst');
+  ul.innerHTML='';
+  pkg.includes.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.appendChild(li);});
+  document.getElementById('rWhy').innerHTML='<strong>¿Por qué este paquete?</strong>'+rec.why;
+
+  const grid=document.getElementById('rAltGrid');
+  grid.innerHTML='';
+  rec.alts.forEach((alt,i)=>{
+    const ap=CATALOG[alt.key];
+    const card=document.createElement('div');
+    card.className='ralt-card';
+    card.innerHTML=`<div class="ralt-order">Alternativa 0${i+1}</div><div class="ralt-name">${ap.alt_name}</div><div class="ralt-price">${ap.alt_price}</div><div class="ralt-why">${alt.reason}</div>`;
+    grid.appendChild(card);
+  });
+
+  const msg=encodeURIComponent(`Hola Raúl, hice el diagnóstico en tu página. Me recomendó "${pkg.name}" (${pkg.price}). Me interesa saber más. Soy ${name}.`);
+  document.getElementById('rCTA').href=`https://wa.me/${WA}?text=${msg}`;
+
+  // Enviar a Google Sheets
+  const SHEET_URL="TU_GOOGLE_APPS_SCRIPT_URL";
+  if(SHEET_URL!=="TU_GOOGLE_APPS_SCRIPT_URL"){
+    fetch(SHEET_URL,{
+      method:'POST',
+      body:JSON.stringify({
+        nombre:name, whatsapp:wa, email:email,
+        paquete:pkg.name,
+        q1:Q_LABELS[1][ans[1]??0],
+        q2:Q_LABELS[2][ans[2]??0],
+        q3:Q_LABELS[3][ans[3]??0],
+        q4:Q_LABELS[4][ans[4]??0],
+        q5:Q_LABELS[5][ans[5]??0]
+      })
+    }).catch(()=>{});
+  }
+
+  const rs=document.getElementById('rs');
+  rs.classList.add('active');
+  rs.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function restart(){
+  Object.keys(ans).forEach(k=>delete ans[k]);
+  document.getElementById('rs').classList.remove('active');
+  document.getElementById('lf').classList.remove('active');
+  document.getElementById('qprog').style.display='flex';
+  ['q1','q2','q3','q4','q5'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  ['n1','n2','n3','n4','n5'].forEach(id=>document.getElementById(id).disabled=true);
+  document.getElementById('q1').classList.add('active');
+  setP(1);
+  document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+}
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*100);obs.unobserve(e.target);}
+  });
+},{threshold:0.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// ── THUMBNAIL LOADER via TikTok oEmbed ──
+// TikTok video IDs extracted from actual URLs visited in browser
+const TKTHUMBS = {
+  'th-tk1': 'https://www.tiktok.com/@asesoresdigitalesg/video/7610987096257416466',
+  'th-tk2': 'https://www.tiktok.com/@asesoresdigitalesg/video/7605435951552269575',
+  'th-tk3': 'https://www.tiktok.com/@asesoresdigitalesg/video/7608410271442406663',
+  'th-tk4': 'https://www.tiktok.com/@donelote.pue/video/7620703458462665991',
+  'th-tk5': 'https://www.tiktok.com/@donelote.pue/video/7629128577400868114'
+};
+
+// Gradient fallbacks for Instagram (oEmbed blocked client-side)
+const IG_GRADIENTS = {
+  'th-nea':   'linear-gradient(160deg,#2a1a2e 0%,#1a0a1a 40%,#0d0d0d 100%)',
+  'th-cacao': 'linear-gradient(160deg,#1a1208 0%,#0d0a04 40%,#0d0d0d 100%)'
+};
+
+// Load TikTok thumbnails via oEmbed (works cross-origin via JSON-P style)
+Object.entries(TKTHUMBS).forEach(([id, url]) => {
+  const el = document.getElementById(id);
+  if(!el) return;
+  fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`)
+    .then(r => r.json())
+    .then(d => {
+      if(d.thumbnail_url) {
+        el.style.backgroundImage = `url('${d.thumbnail_url}')`;
+      }
+    })
+    .catch(() => {
+      // Fallback: show a dark gradient with play icon feel
+      el.style.background = 'linear-gradient(160deg,#1a0a0a 0%,#0d0d0d 100%)';
+    });
+});
+
+// Instagram: apply gradient + show first frame hint via color
+Object.entries(IG_GRADIENTS).forEach(([id, grad]) => {
+  const el = document.getElementById(id);
+  if(el) el.style.background = grad;
+});
+</script>
+</body>
+</html>
