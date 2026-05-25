@@ -189,12 +189,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:58px;display:flex;ali
 .rhead{text-align:center;padding-bottom:1.5rem;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
 .rtag{display:inline-block;background:rgba(45,74,56,.08);color:var(--accent);border-radius:100px;padding:.28rem .9rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.7rem}
 .rpkg{font-family:var(--head);font-size:1.7rem;font-weight:800;color:var(--accent);letter-spacing:-.015em;margin-bottom:.25rem}
-.rprice{font-size:1.1rem;color:var(--accent2);font-weight:700;margin-bottom:.45rem;font-family:var(--head)}
+.rprice{display:none}
 .rdesc{font-size:.87rem;color:var(--muted);line-height:1.6}
 .rincl{margin-top:1.2rem}.ri-lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.55rem}
 .ri-list{list-style:none;display:flex;flex-direction:column;gap:.38rem}
 .ri-list li{display:flex;align-items:flex-start;gap:.55rem;font-size:.85rem;color:var(--text)}
-.ri-list li::before{content:'✓';color:var(--accent);font-weight:700;font-size:.78rem;margin-top:.13rem;min-width:14px}
+.ri-list li::before{content:'✓';color:var(--accent);font-weight:700;font-size:.78rem;margin-top:.13rem;min-width:14px}#rpains li::before{content:'→';color:var(--accent2)}
 .rwhy{margin-top:1.25rem;background:rgba(45,74,56,.05);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1rem}
 .rwhy-lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.3rem}
 .rwhy-txt{font-size:.84rem;color:var(--muted);line-height:1.55}
@@ -480,7 +480,6 @@ footer strong{color:rgba(255,255,255,.88)}
     <div class="pkg rv">
       <div class="pkg-badge new">Video individual</div>
       <div class="pkg-name">1 Video Estratégico</div>
-      <div class="pkg-price">$1,250 <sub>MXN</sub></div>
       <div class="pkg-desc">Producción puntual para validar comunicación, lanzar una campaña específica o crear contenido individual de alto impacto.</div>
       <ul class="pkg-inc">
         <li>1 video estratégico</li>
@@ -494,7 +493,6 @@ footer strong{color:rgba(255,255,255,.88)}
     <div class="pkg rv">
       <div class="pkg-badge new">Entrada</div>
       <div class="pkg-name">PAE START</div>
-      <div class="pkg-price">$2,700 <sub>MXN</sub></div>
       <div class="pkg-desc">Mini campaña estratégica. Ideal para validar estilo, comunicación y comenzar presencia digital con intención.</div>
       <ul class="pkg-inc">
         <li>3 videos estratégicos</li>
@@ -508,7 +506,6 @@ footer strong{color:rgba(255,255,255,.88)}
     <div class="pkg rv">
       <div class="pkg-badge new">Sistema inicial</div>
       <div class="pkg-name">PAE FLOW</div>
-      <div class="pkg-price">$8,500 <sub>MXN</sub></div>
       <div class="pkg-desc">Sistema inicial de contenido. Presencia digital profesional durante 30 días con estructura y calendario.</div>
       <ul class="pkg-inc">
         <li>10 videos estratégicos</li>
@@ -523,7 +520,6 @@ footer strong{color:rgba(255,255,255,.88)}
     <div class="pkg featured rv">
       <div class="pkg-badge pop">Más completo</div>
       <div class="pkg-name">PAE GROWTH 60</div>
-      <div class="pkg-price">$15,500 <sub>MXN</sub></div>
       <div class="pkg-desc">20 videos estratégicos para 60 días de presencia constante. Doble producción, posicionamiento fuerte.</div>
       <ul class="pkg-inc">
         <li>20 videos estratégicos</li>
@@ -538,7 +534,6 @@ footer strong{color:rgba(255,255,255,.88)}
     <div class="pkg rv">
       <div class="pkg-badge new">Sistema completo</div>
       <div class="pkg-name">PAE LEAD SYSTEM</div>
-      <div class="pkg-price">$17,000 <sub>MXN</sub></div>
       <div class="pkg-desc">Sistema inicial de posicionamiento y captación. 10 videos + Landing + CRM. Convierte atención en oportunidades reales.</div>
       <ul class="pkg-inc">
         <li>10 videos estratégicos</li>
@@ -553,7 +548,6 @@ footer strong{color:rgba(255,255,255,.88)}
     <div class="pkg featured rv">
       <div class="pkg-badge pop">Sistema PRO</div>
       <div class="pkg-name">PAE SYSTEM PRO</div>
-      <div class="pkg-price">$24,500 <sub>MXN</sub></div>
       <div class="pkg-desc">Ecosistema completo — 20 videos, Landing, CRM, chatbot y automatización. Todo funcionando junto.</div>
       <ul class="pkg-inc">
         <li>20 videos estratégicos</li>
@@ -568,7 +562,6 @@ footer strong{color:rgba(255,255,255,.88)}
     <div class="pkg rv">
       <div class="pkg-badge new">Mensual</div>
       <div class="pkg-name">PAE CONTINUITY</div>
-      <div class="pkg-price">$14,000+ <sub>MXN/mes</sub></div>
       <div class="pkg-desc">Sistema mensual de optimización y crecimiento. Para negocios que ya tienen estructura y quieren mantener crecimiento constante.</div>
       <ul class="pkg-inc">
         <li>10 o 20 videos mensuales</li>
@@ -766,8 +759,16 @@ footer strong{color:rgba(255,255,255,.88)}
         <div class="rprice" id="rprice">—</div>
         <div class="rdesc" id="rdesc">—</div>
       </div>
-      <div class="rincl">
-        <div class="ri-lbl">Incluye</div>
+      <div id="rben-wrap" style="display:none;margin-top:1.2rem">
+        <div class="ri-lbl" style="color:var(--accent)">✦ Lo que vas a lograr</div>
+        <ul class="ri-list" id="rbenefits"></ul>
+      </div>
+      <div id="rpain-wrap" style="display:none;margin-top:1rem">
+        <div class="ri-lbl" style="color:var(--accent2)">✦ Lo que deja de pasarte</div>
+        <ul class="ri-list" id="rpains" style="--chk:'✗';"></ul>
+      </div>
+      <div class="rincl" style="margin-top:1rem">
+        <div class="ri-lbl">El sistema incluye</div>
         <ul class="ri-list" id="rlist"></ul>
       </div>
       <div class="rwhy">
@@ -803,44 +804,116 @@ const PKG = {
   start: {
     name: 'PAE START',
     price: '$2,700 MXN',
-    desc: 'Mini campaña estratégica. Ideal para validar estilo, comunicación y comenzar presencia digital con intención.',
+    desc: 'Tu primer sistema de contenido estratégico. Diseñado para que tu negocio empiece a verse profesional y generar confianza desde el primer video.',
+    benefits: [
+      'Tu negocio empieza a existir con autoridad en redes',
+      'Contenido con intención real — no videos vacíos',
+      'Validas qué mensaje conecta con tu mercado antes de invertir más',
+      'Tus prospectos ven profesionalismo desde el primer contacto'
+    ],
+    pains: [
+      'Tu perfil lleva tiempo inactivo o sin dirección',
+      'Publicas pero sin saber si eso funciona',
+      'Sientes que no te ves como lo que realmente eres',
+      'No tienes tiempo ni claridad para producir solo'
+    ],
     inc: ['3 videos estratégicos','Guiones incluidos','Grabación y edición','CTA estratégico por video'],
-    why: 'Con este presupuesto y etapa, lo más inteligente es validar antes de escalar. 3 videos bien hechos te dan una base real para medir qué funciona con tu mercado.'
+    why: 'Lo más inteligente en esta etapa es validar antes de escalar. 3 videos bien construidos te dan una base real para medir qué conecta con tu mercado — sin quemar presupuesto.'
   },
   flow: {
     name: 'PAE FLOW',
     price: '$8,500 MXN',
-    desc: 'Sistema inicial de contenido. Presencia digital profesional durante 30 días con estructura y calendario.',
+    desc: 'Un mes completo de contenido profesional con estructura, planeación y calendario. Tu negocio pasa de publicar esporádicamente a tener presencia constante y autoridad real.',
+    benefits: [
+      'Presencia constante durante 30 días sin improvisar',
+      'Cada video tiene un objetivo claro dentro de la estrategia',
+      'Tu audiencia empieza a reconocerte como referente',
+      'Menos tiempo operando contenido, más tiempo en tu negocio'
+    ],
+    pains: [
+      'Tienes ideas pero no las conviertes en videos',
+      'Publicas sin estrategia y no sabes qué funciona',
+      'Tu perfil se ve inconsistente o amateur',
+      'Dependes de ti mismo para todo y te estancas'
+    ],
     inc: ['10 videos estratégicos','Estrategia y planeación','Guiones + grabación + edición','CTAs definidos','Calendario de contenido'],
-    why: 'Ya tienes algo construido y necesitas orden y consistencia. Este sistema te da un mes completo de contenido bien estructurado para construir autoridad real.'
+    why: 'Ya tienes algo construido y necesitas orden y consistencia. Este sistema te da un mes completo de contenido estructurado para construir autoridad real con tu mercado.'
   },
   growth: {
     name: 'PAE GROWTH 60',
     price: '$15,500 MXN',
-    desc: '20 videos estratégicos para 60 días de presencia constante. Posicionamiento fuerte, doble producción.',
+    desc: '20 videos estratégicos para 60 días de presencia constante. Posicionamiento fuerte, doble producción y presencia que construye autoridad mes a mes.',
+    benefits: [
+      '60 días de contenido constante que posiciona tu marca',
+      'Volumen con calidad — no improvisación',
+      'Tu competencia siente que estás en todos lados',
+      'Construyes reputación digital sólida en tu mercado'
+    ],
+    pains: [
+      'Publicas poco porque producir toma mucho tiempo',
+      'Sientes que tu competencia te está ganando terreno',
+      'Ya tienes base digital pero necesitas más volumen',
+      'No tienes sistema para mantener constancia real'
+    ],
     inc: ['20 videos estratégicos','2 sesiones de grabación','Estrategia + guiones + edición','CTAs + calendario de contenido','Aplicable en 30 o 60 días'],
-    why: 'Tu negocio ya tiene base digital y necesitas volumen con calidad. Este sistema te posiciona con autoridad durante 60 días de contenido constante.'
+    why: 'Tu negocio ya tiene base y necesitas volumen con calidad. Este sistema te posiciona con autoridad durante 60 días — sin sacrificar la estrategia ni la producción.'
   },
   lead: {
     name: 'PAE LEAD SYSTEM',
     price: '$17,000 MXN',
-    desc: 'Sistema inicial de posicionamiento y captación. 10 videos + Landing + CRM. Convierte atención en oportunidades reales.',
+    desc: 'Contenido estratégico conectado a un sistema de captación real. Tus videos dejan de ser solo vistas y empiezan a convertirse en prospectos organizados.',
+    benefits: [
+      'El contenido empieza a traer prospectos, no solo vistas',
+      'Cada lead queda registrado, organizado y con seguimiento',
+      'Tu negocio deja de depender de recomendaciones o suerte',
+      'Sabes exactamente cuántos prospectos genera tu contenido'
+    ],
+    pains: [
+      'Generas atención pero no sabes cómo convertirla',
+      'Los interesados te escriben pero se pierden sin orden',
+      'No tienes Landing ni sistema para captar prospectos',
+      'Sientes que el contenido funciona pero no vende'
+    ],
     inc: ['10 videos estratégicos','Landing Page estratégica','CRM + dashboard de leads','Automatización básica','Respuestas automáticas'],
-    why: 'Tu negocio está generando atención pero el embudo no está cerrado. Este sistema conecta el contenido con la captación — para que la atención se convierta en clientes organizados.'
+    why: 'Estás generando atención pero el embudo no está cerrado. Este sistema conecta el contenido con la captación para que cada vista tenga un siguiente paso claro hacia la venta.'
   },
   pro: {
     name: 'PAE SYSTEM PRO',
     price: '$24,500 MXN',
-    desc: 'Ecosistema completo — 20 videos, Landing, CRM, chatbot y automatización. Todo funcionando junto.',
+    desc: 'El ecosistema completo — contenido, captación, automatización y seguimiento. Tu negocio opera como un sistema digital que trabaja incluso cuando tú no estás.',
+    benefits: [
+      'Tu negocio capta y da seguimiento sin depender de ti',
+      'Contenido + captación + automatización funcionando juntos',
+      'Prospectos filtrados, organizados y listos para cerrar',
+      'Tu sistema trabaja mientras tú te enfocas en operar'
+    ],
+    pains: [
+      'Pierdes prospectos porque no hay seguimiento organizado',
+      'Operas todo manualmente y no escala',
+      'Necesitas un sistema, no solo publicaciones',
+      'Ya tienes presupuesto pero no sabes en qué invertirlo con certeza'
+    ],
     inc: ['20 videos estratégicos','Landing Page + CRM + Dashboard','Chatbot inicial','Automatización y seguimiento','Calendario de publicaciones'],
-    why: 'Estás listo para un ecosistema completo. Este sistema integra contenido, captación, seguimiento y automatización — el motor de negocio que trabaja mientras tú operas.'
+    why: 'Estás listo para el ecosistema completo. Este sistema integra contenido, captación, seguimiento y automatización — el motor de negocio que trabaja mientras tú operas y creces.'
   },
   continuity: {
     name: 'PAE CONTINUITY',
     price: 'Desde $14,000 MXN/mes',
-    desc: 'Sistema mensual de optimización y crecimiento constante para negocios con estructura inicial.',
+    desc: 'Sistema mensual activo. Tu contenido, captación y seguimiento evolucionan mes a mes con optimización constante — sin que tengas que empezar de cero cada vez.',
+    benefits: [
+      'El sistema mejora mes a mes sin esfuerzo extra de tu parte',
+      'Nuevos hooks, nuevos CTAs y contenido siempre fresco',
+      'CRM y seguimiento activos todos los meses',
+      'Crecimiento constante sin depender de campañas eventuales'
+    ],
+    pains: [
+      'Empiezas fuerte pero pierdes constancia con el tiempo',
+      'El sistema que construiste se vuelve obsoleto sin mantenimiento',
+      'Necesitas alguien que mantenga todo funcionando',
+      'Quieres crecimiento constante, no picos y valles'
+    ],
     inc: ['10 o 20 videos mensuales','Optimización continua + nuevos hooks','Mantenimiento CRM + Dashboard','Automatización ligera','Soporte estratégico mensual'],
-    why: 'No buscas un proyecto puntual — buscas un motor de negocio activo todos los meses. Este sistema mantiene el contenido, la captación y el seguimiento siempre encendidos.'
+    why: 'No buscas un proyecto puntual — buscas un motor de negocio activo todos los meses. Este sistema mantiene el contenido, la captación y el seguimiento siempre encendidos y mejorando.'
   }
 };
 
@@ -943,8 +1016,23 @@ function showResult(name,wa,email,state) {
   document.getElementById('rdesc').textContent  = pkg.desc;
   document.getElementById('rwhy').textContent   = pkg.why;
 
+  // Incluidos
   const list = document.getElementById('rlist');
   list.innerHTML = pkg.inc.map(i=>`<li>${i}</li>`).join('');
+
+  // Beneficios
+  const benEl = document.getElementById('rbenefits');
+  if(benEl && pkg.benefits) {
+    benEl.innerHTML = pkg.benefits.map(b=>`<li>${b}</li>`).join('');
+    document.getElementById('rben-wrap').style.display='block';
+  }
+
+  // Dolores que resuelve
+  const painEl = document.getElementById('rpains');
+  if(painEl && pkg.pains) {
+    painEl.innerHTML = pkg.pains.map(p=>`<li>${p}</li>`).join('');
+    document.getElementById('rpain-wrap').style.display='block';
+  }
 
   const msg = encodeURIComponent(`Hola Raúl, acabo de hacer el diagnóstico P.A.E. y me recomienda el ${pkg.name} (${pkg.price}). Soy ${name} de ${state}. ¿Podemos hablar?`);
   document.getElementById('rwa').onclick = ()=>window.open(`https://wa.me/${WA}?text=${msg}`,'_blank');
